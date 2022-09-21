@@ -3,7 +3,6 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import React, { useEffect, useState, useRef } from "react";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
-import { getUsers } from "./../../api/api_tweet";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { toast } from "react-toastify";
 import {
@@ -11,9 +10,8 @@ import {
   GetProfile,
   UploadUserImage,
 } from "./../../api/UserService";
-import jwt_decode from "jwt-decode";
+
 import { isEmpty } from "lodash";
-import axios from "axios";
 
 export const Tweeter = ({ fullName, id, img }) => {
   const classes = useStyles();
@@ -46,7 +44,7 @@ export const Tweeter = ({ fullName, id, img }) => {
   );
 };
 
-const LeftSidebar = ({data}) => {
+const LeftSidebar = ({ data }) => {
   const classes = useStyles();
 
   const [user, setUser] = useState();
@@ -55,10 +53,7 @@ const LeftSidebar = ({data}) => {
   const [imagePath, setImagePath] = useState();
   const inputRef = useRef();
 
-
   useEffect(async () => {
-   
-   
     const { status, data } = await GetAllUsers();
     if (status == 200) {
       setUsers(data.result);
@@ -84,9 +79,9 @@ const LeftSidebar = ({data}) => {
 
       await UploadUserImage(formData).then((res) =>
         res.status == 201
-          ? toast.success("عکس پروفایل تغییر کرد") && 
+          ? toast.success("عکس پروفایل تغییر کرد") &&
             window.setTimeout(function () {
-              location.reload();
+              window.location.reload();
             }, 2000)
           : toast.error("مشکلی رخ داد")
       );
