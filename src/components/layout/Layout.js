@@ -3,7 +3,6 @@ import useStyles from "./styles";
 import { CircularProgress, Divider, Typography } from "@mui/material";
 import RightSidebar from "./../rightSidebar/RightSidebar";
 import LeftSidebar from "../leftSidebar/LeftSidebar";
-import { getProfileRequest } from "../../api/api_auth";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import ReactLoading from "react-loading";

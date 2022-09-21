@@ -5,7 +5,6 @@ import useStyles from "./styles";
 import { Link } from "react-router-dom";
 import { getUsers } from "./../../api/api_tweet";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { uploadUserPhoto } from "./../../api/api_auth";
 import { toast } from "react-toastify";
 import {
   GetAllUsers,

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Tab, Tabs, Typography, Input, Button } from "@mui/material";
 import useStyles from "./styles";
 import { toast } from "react-toastify";
-import { loginApi, registerMyApi } from "./../../api/api_auth";
 import { Login, Register } from "../../api/AuthService";
 import axios from "axios";
 import { ResetTvOutlined } from "@mui/icons-material";
