@@ -31,7 +31,9 @@ axios.interceptors.response.use(null, (error) => {
 });
 
 axios.interceptors.request.use((config) => {
-  config.headers["Authorization"] = `Bearer ${localStorage.getItem("x-auth-token")}`;
+  config.headers["Authorization"] = `Bearer ${localStorage.getItem(
+    "x-auth-token"
+  )}`;
   return config;
 });
 

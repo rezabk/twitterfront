@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import Layout from "./layout/Layout";
-import Home from "./../pages/home/Home";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import NotFound from "./../pages/404/404";
-import TweetByUser from "./../pages/tweetsByUser/TweetByUser";
 import AuthPage from "./../pages/auth/AuthPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TweetProvider } from "../context/TweetContext";
-import { isEmpty } from "lodash";
+import PanelPage from "../pages/panel/PanelPage";
+import Dashboard from "../pages/panel/Dashboard/Dashboard";
+import UserDetails from "../pages/panel/UserDetails/UserDetails";
 
 const App = () => {
   return (
@@ -16,20 +14,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <PublicRoute path="/login" component={AuthPage} />
-          <PrivateRoute
-            path="/"
-            render={() => (
-              <TweetProvider>
-                <Layout>
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/users/:name" component={TweetByUser} />
-                    <Route component={NotFound} />
-                  </Switch>
-                </Layout>
-              </TweetProvider>
-            )}
-          />
+          <PrivateRoute path="/" render={Dashboard} />
         </Switch>
       </BrowserRouter>
       <ToastContainer />
@@ -44,7 +29,7 @@ const PublicRoute = ({ component, ...props }) => {
     <Route
       {...props}
       render={(props) => {
-        if (isLogin()) return <Redirect to={"/"} />;
+        if (isLogin()) return <Redirect to={"/panel/userdetails"} />;
         else {
           return React.createElement(component, props);
         }

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Tab, Tabs, Typography, Input, Button } from "@mui/material";
 import useStyles from "./styles";
 import { toast } from "react-toastify";
-import { Login, Register } from "../../api/AuthService";
+import { Login, Register, GetAllBooks } from "../../api/AuthService";
 import axios from "axios";
 import { ResetTvOutlined } from "@mui/icons-material";
+import { Redirect } from "react-router";
 
 const LOGIN_TAB_VALUE = 1;
 const REGISTER_TAB_VALUE = 2;
@@ -15,14 +16,11 @@ const AuthPage = () => {
   const [tab, setTab] = useState(LOGIN_TAB_VALUE);
 
   //login state
-  const [usernameLogin, setUsernameLogin] = useState();
+  const [phoneNumberLogin, setPhoneNumberLogin] = useState();
   const [passwordLogin, setPasswordLogin] = useState();
 
   //register state
-  const [firstNameRegister, setFirstNameRegister] = useState();
-  const [lastNameRegister, setLastNameRegister] = useState();
-  const [usernameRegister, setUsernameRegister] = useState();
-  const [emailRegister, setEmailRegister] = useState();
+  const [fullNameRegister, setFullNameRegister] = useState();
   const [phoneNumberRegister, setPhoneNumberRegister] = useState();
   const [passwordRegister, setPasswordRegister] = useState();
   const [passwordConfirmation, setPasswordConfirmation] = useState();
@@ -32,15 +30,12 @@ const AuthPage = () => {
   };
 
   const validateLogin = (user) => {
-    if (!user.UserNameOrEmail) return "باید حتما یوزرنیم خود را وارد کنید ";
+    if (!user.phoneNumber) return "باید حتما یوزرنیم خود را وارد کنید ";
     if (!user.Password) return "باید حتما پسوورد خود را وارد کنید ";
   };
 
   const validateRegister = (user) => {
-    if (!user.FirstName) return "باید حتما نام کوچک خود را وارد کنید";
-    if (!user.LastName) return "باید حتما نام خانوادگی خود را وارد کنید ";
-    if (!user.UserName) return "باید حتما یوزرنیم خود را وارد کنید ";
-    if (!user.Email) return "باید حتما ایمیل خود را وارد کنید ";
+    if (!user.FullName) return "باید حتما نام خود را وارد کنید";
     if (!user.PhoneNumber) return "باید حتما شماره موبایل خود را وارد کنید ";
     if (!user.Password) return "باید حتما پسوورد خود را وارد کنید ";
     if (user.password !== user.passwordConfirmation)
@@ -49,10 +44,7 @@ const AuthPage = () => {
 
   const handleRegister = async () => {
     const user = {
-      FirstName: firstNameRegister,
-      LastName: lastNameRegister,
-      UserName: usernameRegister,
-      Email: emailRegister,
+      FullName: fullNameRegister,
       PhoneNumber: phoneNumberRegister,
       Password: passwordRegister,
       PasswordConfirmation: passwordConfirmation,
@@ -66,12 +58,13 @@ const AuthPage = () => {
     if (status == 201) {
       toast.success("ثبت نام موفقیت آمیز بود");
       localStorage.setItem("x-auth-token", data.result.accessToken);
+      window.location.reload();
     }
   };
 
   const handleLogin = async () => {
     const user = {
-      UserNameOrEmail: usernameLogin,
+      phoneNumber: phoneNumberLogin,
       Password: passwordLogin,
     };
     const error = validateLogin(user);
@@ -79,9 +72,10 @@ const AuthPage = () => {
 
     const { status, data } = await Login(user);
 
-    if (status == 202) {
+    if (status == 201) {
       toast.success(data.messages[0]);
       localStorage.setItem("x-auth-token", data.result.accessToken);
+      // <Redirect to={"/panel/userdetails"} />;
       window.location.reload();
     }
   };
@@ -89,7 +83,7 @@ const AuthPage = () => {
   return (
     <div className={classes.container}>
       <Typography className={classes.headerText}>
-        خوش آمدید به توییتر ما
+        خوش آمدید به کتابخانه
       </Typography>
       <Tabs
         value={tab}
@@ -107,11 +101,13 @@ const AuthPage = () => {
       </Tabs>
       {tab === LOGIN_TAB_VALUE && (
         <div className={classes.containerInput}>
-          <Typography style={{ fontFamily: "Shabnam" }}>نام کاربری</Typography>
+          <Typography style={{ fontFamily: "Shabnam" }}>
+            شماره موبایل{" "}
+          </Typography>
           <Input
             className={"uni_m_b_small"}
-            value={usernameLogin}
-            onChange={(e) => setUsernameLogin(e.target.value)}
+            value={phoneNumberLogin}
+            onChange={(e) => setPhoneNumberLogin(e.target.value)}
           ></Input>
           <Typography style={{ fontFamily: "Shabnam" }}> رمز عبور</Typography>
           <Input
@@ -133,33 +129,14 @@ const AuthPage = () => {
 
       {tab === REGISTER_TAB_VALUE && (
         <div className={classes.containerInput}>
-          <Typography style={{ fontFamily: "Shabnam" }}>نام</Typography>
-          <Input
-            className={"uni_m_b_small"}
-            value={firstNameRegister}
-            onChange={(e) => setFirstNameRegister(e.target.value)}
-          ></Input>
-
           <Typography style={{ fontFamily: "Shabnam" }}>
-            نام خانوادگی
+            {" "}
+            نام و نام خانوادگی
           </Typography>
           <Input
             className={"uni_m_b_small"}
-            value={lastNameRegister}
-            onChange={(e) => setLastNameRegister(e.target.value)}
-          ></Input>
-          <Typography style={{ fontFamily: "Shabnam" }}>نام کاربری</Typography>
-          <Input
-            className={"uni_m_b_small"}
-            value={usernameRegister}
-            onChange={(e) => setUsernameRegister(e.target.value)}
-          ></Input>
-
-          <Typography style={{ fontFamily: "Shabnam" }}> ایمیل</Typography>
-          <Input
-            className={"uni_m_b_small"}
-            value={emailRegister}
-            onChange={(e) => setEmailRegister(e.target.value)}
+            value={fullNameRegister}
+            onChange={(e) => setFullNameRegister(e.target.value)}
           ></Input>
 
           <Typography style={{ fontFamily: "Shabnam" }}>
