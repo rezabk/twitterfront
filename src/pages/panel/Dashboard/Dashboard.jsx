@@ -20,9 +20,6 @@ const Dashboard = ({ children }) => {
 
   return (
     <div id="wrapper">
-      {/* <Helmet>
-        <title>آموزشگاه سپهر | داشبورد</title>
-      </Helmet> */}
       <nav
         className="navbar navbar-inverse navbar-fixed-top dashboard-navbar"
         style={{ backgroundColor: "#222", height: "80px" }}
@@ -60,76 +57,6 @@ const Dashboard = ({ children }) => {
         <Route path="/panel/bookbycategory" component={BooksByCategory} />
         <Route path="/panel/charges" component={Charges} />
       </Switch>
-
-      {/* <AdminContext>
-        <AdminSidebar />
-      </AdminContext> */}
-      {/* <Switch>
-        <Route
-          exact
-          path="/dashboard/admindetails"
-          render={() => (
-            <AdminContext>
-              <AdminDetails />
-            </AdminContext>
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/courses"
-          render={() => (
-            <AdminContext >
-              <CoursesTable />
-            </AdminContext>
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/terms"
-          render={() => (
-            <AdminContext >
-              <TermsTable />
-            </AdminContext>
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/news"
-          render={() => (
-            <AdminContext >
-              <NewsTable />
-            </AdminContext>
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/teachers"
-          render={() => (
-            <AdminContext >
-              <TeachersTable />
-            </AdminContext>
-          )}
-        />
-        <Route
-          exact
-          path="/dashboard/students"
-          render={() => (
-            <AdminContext >
-              <StudentsTable />
-            </AdminContext>
-          )}
-        />
-
-        <Route
-          exact
-          path="/dashboard/contactUs"
-          render={() => (
-            <AdminContext>
-              <ContactUsTable />
-            </AdminContext>
-          )}
-        />
-      </Switch> */}
     </div>
   );
 };

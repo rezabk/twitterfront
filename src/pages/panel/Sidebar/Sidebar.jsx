@@ -80,23 +80,21 @@ const Sidebar = () => {
           </NavLink>
         </li>
 
-        {!isEmpty(user) && user.role === "admin" ? (
-          <li style={{ marginTop: "20%" }}>
-            <NavLink
-              to={`/panel/charges`}
-              className="dashboard-text"
-              activeClassName="dashboard-text-active"
-              style={{
-                color: "white",
-                fontSize: "20px",
-                textDecoration: "none",
-                fontFamily: "shabnam",
-              }}
-            >
-              <i className="fa fa-fw fa-graduation-cap"></i> جریمه ها
-            </NavLink>
-          </li>
-        ) : null}
+        <li style={{ marginTop: "20%" }}>
+          <NavLink
+            to={`/panel/charges`}
+            className="dashboard-text"
+            activeClassName="dashboard-text-active"
+            style={{
+              color: "white",
+              fontSize: "20px",
+              textDecoration: "none",
+              fontFamily: "shabnam",
+            }}
+          >
+            <i className="fa fa-fw fa-graduation-cap"></i> جریمه ها
+          </NavLink>
+        </li>
 
         <li style={{ marginTop: "20%" }}>
           <NavLink
