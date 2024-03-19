@@ -3,15 +3,10 @@ import TopNav from "../TopNav/TopNav";
 import "./Dashboard.css";
 import Sidebar from "../Sidebar/Sidebar";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import UserDetails from "../UserDetails/UserDetails";
-import Books from "../Books/Books";
-import BookByName from "../Books/BookByName";
-import BooksByWriterName from "../Books/BooksByWriterName";
-import { GetBookByCategory } from "../../../api/Books";
-import BooksByCategory from "../Books/BooksByCategory";
-import ReservedBooks from "../Books/ReservedBooks";
-import Charges from "../Charges/Charges";
 
+import ShowUsers from "../Users/ShowUsers";
+import ChangePassword from "../Users/ChangePassword";
+import Deposits from "../Users/Deposits";
 const Dashboard = ({ children }) => {
   const handleLogOut = () => {
     localStorage.removeItem("x-auth-token");
@@ -49,13 +44,9 @@ const Dashboard = ({ children }) => {
       <Sidebar />
 
       <Switch>
-        <Route path="/panel/userdetails" component={UserDetails} />
-        <Route path="/panel/books" component={Books} />
-        <Route path="/panel/reservedBooks" component={ReservedBooks} />
-        <Route path="/panel/bookbyname" component={BookByName} />
-        <Route path="/panel/bookbywritername" component={BooksByWriterName} />
-        <Route path="/panel/bookbycategory" component={BooksByCategory} />
-        <Route path="/panel/charges" component={Charges} />
+        <Route path="/panel/users" component={ShowUsers} />
+        <Route path="/panel/userchangepassword" component={ChangePassword} />
+        <Route path="/panel/deposits" component={Deposits} />
       </Switch>
     </div>
   );

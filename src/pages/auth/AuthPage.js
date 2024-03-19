@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Tab, Tabs, Typography, Input, Button } from "@mui/material";
 import useStyles from "./styles";
 import { toast } from "react-toastify";
-import { Login, Register, GetAllBooks } from "../../api/AuthService";
-import axios from "axios";
-import { ResetTvOutlined } from "@mui/icons-material";
-import { Redirect } from "react-router";
+
 import { loginAdmin } from "../../api/AdminServices";
 
 const LOGIN_TAB_VALUE = 1;

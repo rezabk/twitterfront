@@ -4,9 +4,8 @@ import NotFound from "./../pages/404/404";
 import AuthPage from "./../pages/auth/AuthPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PanelPage from "../pages/panel/PanelPage";
+
 import Dashboard from "../pages/panel/Dashboard/Dashboard";
-import UserDetails from "../pages/panel/UserDetails/UserDetails";
 
 const App = () => {
   return (
@@ -29,7 +28,7 @@ const PublicRoute = ({ component, ...props }) => {
     <Route
       {...props}
       render={(props) => {
-        if (isLogin()) return <Redirect to={"/panel/userdetails"} />;
+        if (isLogin()) return <Redirect to={"/panel/users"} />;
         else {
           return React.createElement(component, props);
         }
