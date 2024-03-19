@@ -5,6 +5,7 @@
   "dependencies": {
     "@hassanmojab/react-modern-calendar-datepicker": "^3.1.7",
     "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.15.13",
     "@mui/styles": "^5.3.0",
     "@mui/system": "^5.15.13",
     "@reach/dialog": "^0.18.0",

@@ -60,7 +60,7 @@ const Sidebar = () => {
               fontFamily: "shabnam",
             }}
           >
-            <i className="fa fa-fw fa-graduation-cap"></i>کتاب ها
+            <i className="fa fa-fw fa-graduation-cap"></i>کاربران
           </NavLink>
         </li>
 
