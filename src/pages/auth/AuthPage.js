@@ -92,7 +92,7 @@ const AuthPage = () => {
         indicatorColor="primary"
         aria-label="secondary tabs example"
       >
-        <Tab className={classes.tab} value={LOGIN_TAB_VALUE} label="ورود" />
+        <Tab className={classes.tab} value={LOGIN_TAB_VALUE} label="Login" />
         <Tab
           className={classes.tab}
           value={REGISTER_TAB_VALUE}
