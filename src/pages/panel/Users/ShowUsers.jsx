@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { isEmpty } from "lodash";
-import { showUsers } from "../../../api/AdminServices";
+import { getUserById, showUsers } from "../../../api/AdminServices";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
 import "@reach/dialog/styles.css";
 
 const ShowUsers = () => {
+  const token = localStorage.getItem("x-auth-token");
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.unique_name;
+
+  const [user, setUser] = useState();
+
   const [users, setUsers] = useState();
 
   useEffect(() => {
     handleGetUsers();
+    fetchUser();
   }, []);
 
   const handleGetUsers = async () => {
@@ -22,6 +30,14 @@ const ShowUsers = () => {
       console.log(ex);
       toast.error("Error occured");
     }
+  };
+
+  const fetchUser = async () => {
+    await getUserById(decodedToken.unique_name)
+      .then((res) => {
+        setUser(res.data.result);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -39,9 +55,16 @@ const ShowUsers = () => {
               <th scope="col"> FullName </th>
 
               <th scope="col">Email </th>
+              {!isEmpty(user) ? (
+                user.email == "ecadmin@gmail.com" ? null : (
+                  <>
+                    {" "}
+                    <th scope="col">Total Balance </th>
+                    <th scope="col"> Locked Balance</th>
+                  </>
+                )
+              ) : null}
 
-              <th scope="col">Total Balance </th>
-              <th scope="col"> Locked Balance</th>
               <th scope="col">Withdrawble</th>
               <th scope="col"> Total Earning</th>
               <th scope="col"> Referal </th>
@@ -57,8 +80,16 @@ const ShowUsers = () => {
 
                     <td>{!isEmpty(user) ? user.email : null} </td>
 
-                    <td>{!isEmpty(user) ? user.totalBalance : null} </td>
-                    <td>{!isEmpty(user) ? user.lockedBalance : null} </td>
+                    {!isEmpty(user) ? (
+                      user.email == "ecadmin@gmail.com" ? null : (
+                        <>
+                          {" "}
+                          <td>{!isEmpty(user) ? user.totalBalance : null} </td>
+                          <td>{!isEmpty(user) ? user.lockedBalance : null} </td>
+                        </>
+                      )
+                    ) : null}
+
                     <td>{!isEmpty(user) ? user.withdrawbleBalance : null} </td>
                     <td>{!isEmpty(user) ? user.totalEarning : null} </td>
                     <td>{!isEmpty(user) ? user.referalCommission : null} </td>

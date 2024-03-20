@@ -44,3 +44,6 @@ export const addVpn = (vpn) => {
 export const vpnCount = (vpn) => {
   return http.get(`${config.ecoinapi}admin/vpnCount`, vpn);
 };
+export const getUserById = (userId) => {
+  return http.get(`${config.ecoinapi}user/getuserbyid/${userId}`);
+};
