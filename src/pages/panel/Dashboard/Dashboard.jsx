@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import ShowUsers from "../Users/ShowUsers";
 import ChangePassword from "../Users/ChangePassword";
 import Deposits from "../Users/Deposits";
+import Vpn from "../Users/Vpn";
+import Withdraws from "../Users/Withdraws";
 const Dashboard = ({ children }) => {
   const handleLogOut = () => {
     localStorage.removeItem("x-auth-token");
@@ -47,6 +49,8 @@ const Dashboard = ({ children }) => {
         <Route path="/panel/users" component={ShowUsers} />
         <Route path="/panel/userchangepassword" component={ChangePassword} />
         <Route path="/panel/deposits" component={Deposits} />
+        <Route path="/panel/withdraws" component={Withdraws} />
+        <Route path="/panel/vpn" component={Vpn} />
       </Switch>
     </div>
   );

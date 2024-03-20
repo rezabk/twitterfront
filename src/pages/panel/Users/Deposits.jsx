@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { showDeposits, confirmDeposit } from "../../../api/AdminServices";
+import {
+  showDeposits,
+  confirmDeposit,
+  deleteDeposit,
+} from "../../../api/AdminServices";
 import { toast } from "react-toastify";
 import { isEmpty } from "lodash";
 export default function Deposits() {
   const [deposits, setDeposits] = useState();
+  const [reversedDeposits, setReversedDeposits] = useState();
 
   function calculateMinutesPassed(datetimeString) {
     const givenDatetime = new Date(datetimeString);
@@ -24,9 +29,11 @@ export default function Deposits() {
   const handleGetDeposits = async () => {
     try {
       const { status, data } = await showDeposits();
-      console.log(data);
+
       if (status === 200) {
-        setDeposits(data.result);
+        const reversedData = data.result.slice().reverse();
+        setReversedDeposits(reversedData);
+        setDeposits(reversedData);
       }
     } catch (ex) {
       console.log(ex);
@@ -34,12 +41,30 @@ export default function Deposits() {
     }
   };
 
-  const handleVerifyButton = async () => {
+  const handleVerifyButton = async (depositId) => {
+    const id = { id: depositId };
     try {
-      const { status, data } = await confirmDeposit();
-      console.log(data);
+      const { status, data } = await confirmDeposit(id);
+
       if (status === 200) {
         toast.success("Verified Successfully");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    } catch (ex) {
+      console.log(ex);
+      toast.error("Error occured");
+    }
+  };
+
+  const handleDeleteButton = async (depositId) => {
+    const id = { depositId };
+    try {
+      const { status, data } = await deleteDeposit(id);
+
+      if (status === 200) {
+        toast.success("Deposit request deleted");
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -85,11 +110,19 @@ export default function Deposits() {
                     <td>
                       {!isEmpty(deposit) ? (
                         deposit.status ? (
-                          <button type="button" class="btn btn-success">
+                          <button
+                            style={{ cursor: "default" }}
+                            type="button"
+                            class="btn btn-success"
+                          >
                             successful
                           </button>
                         ) : (
-                          <button type="button" class="btn btn-warning">
+                          <button
+                            style={{ cursor: "default" }}
+                            type="button"
+                            class="btn btn-warning"
+                          >
                             Pending
                           </button>
                         )
@@ -98,13 +131,18 @@ export default function Deposits() {
                     <td>
                       {" "}
                       {deposit.status == true ? (
-                        <button type="button" class="btn btn-secondary">
+                        <button
+                          style={{ cursor: "default" }}
+                          type="button"
+                          class="btn btn-secondary"
+                        >
                           Verified
                         </button>
                       ) : (
                         <>
                           <button
-                            onClick={(e) => handleVerifyButton(e)}
+                            key={deposit.id}
+                            onClick={(e) => handleVerifyButton(deposit.id)}
                             type="button"
                             class="btn btn-primary"
                           >
@@ -115,7 +153,12 @@ export default function Deposits() {
                     </td>
                     <td>
                       {" "}
-                      <button type="button" class="btn btn-danger">
+                      <button
+                        key={deposit.id}
+                        onClick={(e) => handleDeleteButton(deposit.id)}
+                        type="button"
+                        class="btn btn-danger"
+                      >
                         Delete
                       </button>{" "}
                     </td>

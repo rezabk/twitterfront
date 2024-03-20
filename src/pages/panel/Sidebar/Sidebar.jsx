@@ -52,6 +52,22 @@ const Sidebar = () => {
 
         <li style={{ marginTop: "20%" }}>
           <NavLink
+            to={`/panel/vpn`}
+            className="dashboard-text"
+            activeClassName="dashboard-text-active"
+            style={{
+              color: "white",
+              fontSize: "20px",
+              textDecoration: "none",
+              fontFamily: "shabnam",
+            }}
+          >
+            <i className="fa fa-fw fa-graduation-cap"></i>Vpn
+          </NavLink>
+        </li>
+
+        <li style={{ marginTop: "20%" }}>
+          <NavLink
             to={`/panel/deposits`}
             className="dashboard-text"
             activeClassName="dashboard-text-active"
@@ -63,6 +79,22 @@ const Sidebar = () => {
             }}
           >
             <i className="fa fa-fw fa-graduation-cap"></i> واریز ها
+          </NavLink>
+        </li>
+
+        <li style={{ marginTop: "20%" }}>
+          <NavLink
+            to={`/panel/withdraws`}
+            className="dashboard-text"
+            activeClassName="dashboard-text-active"
+            style={{
+              color: "white",
+              fontSize: "20px",
+              textDecoration: "none",
+              fontFamily: "shabnam",
+            }}
+          >
+            <i className="fa fa-fw fa-graduation-cap"></i> برداشت ها
           </NavLink>
         </li>
       </ul>
